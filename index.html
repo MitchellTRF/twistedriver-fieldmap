@@ -836,7 +836,10 @@ text-transform: uppercase; letter-spacing: 0.5px;
 @media print {
   /* Hide everything by default */
   body * { visibility: hidden !important; }
-
+  /* Force-remove sidebar + toggle from print layout */
+  #panel, #panel-toggle, .view-date-control, #spreadsheet-overlay {
+    display: none !important;
+  }
   /* …then show only the map + the print header */
   #map, #map * { visibility: visible !important; }
   #print-header, #print-header * { visibility: visible !important; }

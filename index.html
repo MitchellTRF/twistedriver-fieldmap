@@ -1991,34 +1991,7 @@ offset: [0, -10]
 }
 
 rect.on('click', function() { scrollToRow(row.id); });
-// --- Measurement label (stationing + length) ---
-if (showMeasurements) {
-  const startFt = offsetFt;
-  const endFt = offsetFt + row.width;
 
-  const centerLat = (northLat + southLat) / 2;
-  const centerLng = (westLng + eastLng) / 2;
-
-  const measHtml = `
-    <div class="measure-label">
-      ${escHtml(row.name)}
-      <div class="sub">X: ${startFt.toFixed(0)}–${endFt.toFixed(0)} ft</div>
-      <div class="sub">L: ${row.length.toFixed(0)} ft</div>
-    </div>
-  `;
-
-  const measMarker = L.marker([centerLat, centerLng], {
-    icon: L.divIcon({
-      className: '',
-      html: measHtml,
-      iconSize: [0, 0],
-      iconAnchor: [0, 0]
-    }),
-    interactive: false
-  }).addTo(map);
-
-  activeLabelLayers.push(measMarker);
-}
 activeLayers.push(rect);
 offsetFt += row.width;
 });

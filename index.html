@@ -833,28 +833,21 @@ outline: none; color-scheme: dark; width: 100%;
 font-size: 8px; color: var(--bone); opacity: 0.5;
 text-transform: uppercase; letter-spacing: 0.5px;
 @media print {
-
-  /* Hide UI */
   #panel, #panel-toggle, .view-date-control, #spreadsheet-overlay {
     display: none !important;
   }
 
-  /* Reset page */
   html, body {
-    background: #fff !important;
     height: auto !important;
     overflow: visible !important;
+    background: #fff !important;
   }
 
-  /* Center the map */
   #map {
-    position: relative !important;
-    width: 100% !important;
-    height: 90vh !important;
-    margin: 40px auto !important;
+    position: fixed !important;
+    inset: 0 !important;
   }
 
-  /* Hide map controls */
   .leaflet-control-container {
     display: none !important;
   }

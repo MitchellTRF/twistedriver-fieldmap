@@ -1036,7 +1036,7 @@ let placementMode = null; // { fieldId, ghostMarker, banner, onMove, onClick, on
 let viewDate = null; // null = today (default), or 'YYYY-MM-DD' string
 let allNotesExpanded = false;
 let lanesHidden = localStorage.getItem('twistedriver-lanesHidden') === 'true';
-
+let showMeasurements = true;
 // --- Map Setup ---
 const map = L.map('map', {
 center: getFieldCenter(activeField()),
@@ -1991,7 +1991,34 @@ offset: [0, -10]
 }
 
 rect.on('click', function() { scrollToRow(row.id); });
+// --- Measurement label (stationing + length) ---
+if (showMeasurements) {
+  const startFt = offsetFt;
+  const endFt = offsetFt + row.width;
 
+  const centerLat = (northLat + southLat) / 2;
+  const centerLng = (westLng + eastLng) / 2;
+
+  const measHtml = `
+    <div class="measure-label">
+      ${escHtml(row.name)}
+      <div class="sub">X: ${startFt.toFixed(0)}–${endFt.toFixed(0)} ft</div>
+      <div class="sub">L: ${row.length.toFixed(0)} ft</div>
+    </div>
+  `;
+
+  const measMarker = L.marker([centerLat, centerLng], {
+    icon: L.divIcon({
+      className: '',
+      html: measHtml,
+      iconSize: [0, 0],
+      iconAnchor: [0, 0]
+    }),
+    interactive: false
+  }).addTo(map);
+
+  activeLabelLayers.push(measMarker);
+}
 activeLayers.push(rect);
 offsetFt += row.width;
 });

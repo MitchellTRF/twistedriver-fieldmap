@@ -833,22 +833,37 @@ outline: none; color-scheme: dark; width: 100%;
 font-size: 8px; color: var(--bone); opacity: 0.5;
 text-transform: uppercase; letter-spacing: 0.5px;
 @media print {
-  #panel, #panel-toggle, .view-date-control, #spreadsheet-overlay {
-    display: none !important;
+  /* Hide everything by default */
+  body * { visibility: hidden !important; }
+
+  /* …then show only the map + the print header */
+  #map, #map * { visibility: visible !important; }
+  #print-header, #print-header * { visibility: visible !important; }
+
+  /* Make the map fill the page */
+  #map {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
   }
 
-  html, body {
-    background: #fff !important;
-  }
-
-  /* DO NOT change map positioning */
-  .leaflet-control-container {
-    display: none !important;
-  }
-
+  /* Keep header on top */
   #print-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     display: block !important;
+    z-index: 999999 !important;
   }
+
+  /* Remove leaflet UI chrome */
+  .leaflet-control-container { display: none !important; }
+
+  /* Prevent browser margins clipping the map */
+  @page { margin: 0; }
 }
 </style>
 </head>

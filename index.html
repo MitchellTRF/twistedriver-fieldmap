@@ -832,6 +832,19 @@ outline: none; color-scheme: dark; width: 100%;
 .ss-date-filter span {
 font-size: 8px; color: var(--bone); opacity: 0.5;
 text-transform: uppercase; letter-spacing: 0.5px;
+}@media print {
+  /* Print only the map */
+  #panel, #panel-toggle, .view-date-control, #spreadsheet-overlay { display: none !important; }
+
+  /* Make the map fill the page */
+  html, body { height: auto !important; overflow: visible !important; background: #fff !important; }
+  #map { position: fixed !important; inset: 0 !important; }
+
+  /* Hide Leaflet controls for cleaner print */
+  .leaflet-control-container { display: none !important; }
+
+  /* Print header should show only on print */
+  #print-header { display: block !important; }
 }
 </style>
 </head>

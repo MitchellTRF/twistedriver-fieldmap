@@ -1044,7 +1044,16 @@ e.target.value = '';
 
 // --- Load / Migration ---
 function loadState() {
-const saved = localStorage.getItem(STORAGE_KEY);
+let saved = localStorage.getItem(storageKey());
+
+// One-time migration from old non-year storage
+if (!saved) {
+  const legacy = localStorage.getItem('twistedriver-rows');
+  if (legacy) {
+    localStorage.setItem(storageKey(), legacy);
+    saved = legacy;
+  }
+}
 if (saved) {
 try {
 const parsed = JSON.parse(saved);

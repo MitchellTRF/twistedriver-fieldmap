@@ -2450,30 +2450,6 @@ if (nextInput) { nextInput.focus(); nextInput.select(); }
     alert('Print failed: ' + e.message);
   }
 };
-  // Ensure latest map render
-  try { renderMap(); } catch (e) {}
-
-  // Set header text (field name + date)
-  const field = activeField();
-  const titleEl = document.getElementById('print-title');
-  const dateEl = document.getElementById('print-date');
-
-  if (titleEl) titleEl.textContent = `Twisted River Farm — ${field?.name || 'Field'} — Map`;
-  if (dateEl) dateEl.textContent = `Printed: ${new Date().toLocaleDateString()}`;
-
-  // Show header for printing
-  const header = document.getElementById('print-header');
-  if (header) header.style.display = 'block';
-
-  setTimeout(() => {
-    window.print();
-
-    // Hide header again after printing
-    setTimeout(() => {
-      if (header) header.style.display = 'none';
-    }, 300);
-  }, 250);
-}
 </script>
 </body>
 </html>

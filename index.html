@@ -1173,7 +1173,7 @@ return `${baseName} ${i}`;
 }
 
 function persist() {
-localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(storageKey(), JSON.stringify(state));
 }
 
 function snapshotForUndo() {

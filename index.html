@@ -2419,7 +2419,33 @@ if (nextInput) { nextInput.focus(); nextInput.select(); }
 }
 }
 });
-  function printMap() {
+  window.printMap = function() {
+  // Fill print header text if present
+  try {
+    var fieldName = 'Field';
+    if (typeof activeField === 'function') {
+      var f = activeField();
+      if (f && f.name) fieldName = f.name;
+    }
+
+    var titleEl = document.getElementById('print-title');
+    var dateEl = document.getElementById('print-date');
+    if (titleEl) titleEl.textContent = 'Twisted River Farm — ' + fieldName + ' — Map';
+    if (dateEl) dateEl.textContent = 'Printed: ' + new Date().toLocaleDateString();
+
+    var header = document.getElementById('print-header');
+    if (header) header.style.display = 'block';
+
+    setTimeout(function() {
+      window.print();
+      setTimeout(function() {
+        if (header) header.style.display = 'none';
+      }, 300);
+    }, 250);
+  } catch (e) {
+    alert('Print failed: ' + e.message);
+  }
+};
   // Ensure latest map render
   try { renderMap(); } catch (e) {}
 

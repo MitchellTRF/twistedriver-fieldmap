@@ -1043,8 +1043,15 @@ e.target.value = '';
 });
 
 // --- Load / Migration ---
-function loadState() {
 let saved = localStorage.getItem(storageKey());
+
+if (!saved) {
+  const legacy = localStorage.getItem('twistedriver-rows');
+  if (legacy) {
+    localStorage.setItem(storageKey(), legacy);
+    saved = legacy;
+  }
+}
 
 // One-time migration from old non-year storage
 if (!saved) {

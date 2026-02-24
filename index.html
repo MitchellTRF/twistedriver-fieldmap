@@ -2460,11 +2460,22 @@ if (nextInput) { nextInput.focus(); nextInput.select(); }
     if (header) header.style.display = 'block';
 
     setTimeout(function() {
-      window.print();
-      setTimeout(function() {
-        if (header) header.style.display = 'none';
-      }, 300);
-    }, 250);
+  // Re-center + resize Leaflet before printing
+  try {
+    map.invalidateSize();
+    var b = getFieldBounds(activeField());
+    if (b) map.fitBounds(b, { padding: [40, 40] });
+  } catch (e) {}
+
+  // Give the tiles a moment to settle, then print
+  setTimeout(function() {
+    window.print();
+    setTimeout(function() {
+      if (header) header.style.display = 'none';
+    }, 300);
+  }, 250);
+
+}, 250);
   } catch (e) {
     alert('Print failed: ' + e.message);
   }

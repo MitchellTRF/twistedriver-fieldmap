@@ -871,24 +871,8 @@ text-transform: uppercase; letter-spacing: 0.5px;
 
 <div id="panel">
 <div class="panel-header">
-<div class="panel-title-row" style="justify-content: space-between;">
-  <h1>Twisted River Farm</h1>
-
-  <div style="display:flex; align-items:center; gap:6px;">
-    <label style="font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--gold); opacity:0.75;">
-      Year
-    </label>
-    <select id="year-select"
-      style="background: rgba(255,255,255,0.08);
-             border: 1px solid rgba(212, 168, 67, 0.3);
-             color: var(--cream);
-             padding: 6px 10px;
-             border-radius: 6px;
-             font-family: 'DM Sans', sans-serif;
-             font-size: 13px; font-weight: 700;
-             cursor: pointer; outline: none;">
-    </select>
-  </div>
+<div class="panel-title-row">
+<h1>Twisted River Farm</h1>
 </div>
 
 <div class="field-bar">
@@ -1043,24 +1027,8 @@ e.target.value = '';
 });
 
 // --- Load / Migration ---
-let saved = localStorage.getItem(storageKey());
-
-if (!saved) {
-  const legacy = localStorage.getItem('twistedriver-rows');
-  if (legacy) {
-    localStorage.setItem(storageKey(), legacy);
-    saved = legacy;
-  }
-}
-
-// One-time migration from old non-year storage
-if (!saved) {
-  const legacy = localStorage.getItem('twistedriver-rows');
-  if (legacy) {
-    localStorage.setItem(storageKey(), legacy);
-    saved = legacy;
-  }
-}
+function loadState() {
+const saved = localStorage.getItem(STORAGE_KEY);
 if (saved) {
 try {
 const parsed = JSON.parse(saved);
@@ -1180,7 +1148,7 @@ return `${baseName} ${i}`;
 }
 
 function persist() {
-  localStorage.setItem(storageKey(), JSON.stringify(state));
+localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 function snapshotForUndo() {
@@ -2418,4 +2386,3 @@ if (nextInput) { nextInput.focus(); nextInput.select(); }
 </script>
 </body>
 </html>
-
